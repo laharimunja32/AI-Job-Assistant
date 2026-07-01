@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.core.config import settings
 from app.db.base import Base
-from app.db.models import Profile, Resume, User  # noqa: F401  Import for model registration
+from app.db.models import Company, Job, JobSource, Profile, Resume, SearchHistory, User  # noqa: F401  Import for model registration
 
 connect_args = {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
 
