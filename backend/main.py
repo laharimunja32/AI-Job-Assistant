@@ -1,1 +1,3 @@
-"""FastAPI application entrypoint placeholder."""
+from app import app
+
+__all__ = ["app"]
