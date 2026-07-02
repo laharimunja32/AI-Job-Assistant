@@ -30,6 +30,8 @@ const InterviewPreparationPage = lazy(() => import('@/pages/interviews/Interview
 const InterviewPracticePage = lazy(() => import('@/pages/interviews/InterviewPracticePage'));
 const InterviewFeedbackPage = lazy(() => import('@/pages/interviews/InterviewFeedbackPage'));
 const InterviewHistoryPage = lazy(() => import('@/pages/interviews/InterviewHistoryPage'));
+const InterviewFeedbackListPage = lazy(() => import('@/pages/interview-feedback/InterviewFeedbackListPage'));
+const InterviewFeedbackDetailPage = lazy(() => import('@/pages/interview-feedback/InterviewFeedbackDetailPage'));
 const TimelinePage = lazy(() => import('@/pages/recruitment/TimelinePage'));
 const RemindersPage = lazy(() => import('@/pages/recruitment/RemindersPage'));
 
@@ -68,6 +70,8 @@ export const router = createBrowserRouter([
       { path: 'interview-prep/:preparationId', element: <Lazy><InterviewPreparationPage /></Lazy> },
       { path: 'interview-prep/:preparationId/practice', element: <Lazy><InterviewPracticePage /></Lazy> },
       { path: 'interview-prep/:preparationId/feedback', element: <Lazy><InterviewFeedbackPage /></Lazy> },
+      { path: 'interview-feedback', element: <Lazy><InterviewFeedbackListPage /></Lazy> },
+      { path: 'interview-feedback/:feedbackId', element: <Lazy><InterviewFeedbackDetailPage /></Lazy> },
       { path: 'timeline', element: <Lazy><TimelinePage /></Lazy> },
       { path: 'reminders', element: <Lazy><RemindersPage /></Lazy> },
     ],

@@ -2,6 +2,7 @@
 import { useDashboard, useRefreshDashboard } from '@/hooks';
 import { DashboardStats } from '@/components/dashboard/StatCard';
 import { DashboardSection } from '@/components/dashboard/DashboardSection';
+import { InterviewFeedbackDashboardSection } from '@/components/dashboard/InterviewFeedbackDashboardSection';
 import { JobCard, JobListGrid } from '@/components/jobs/JobCard';
 import { WalkInCard } from '@/components/walk-ins/WalkInCard';
 import { PageLoader } from '@/components/ui/Loader';
@@ -209,6 +210,8 @@ export default function DashboardPage() {
           </Card>
         </DashboardSection>
       </div>
+
+      <InterviewFeedbackDashboardSection />
 
       <DashboardSection title="Interview Readiness" viewAllHref="/interview-prep/history">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

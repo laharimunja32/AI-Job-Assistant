@@ -11,3 +11,4 @@ export * from './useHealth';
 export * from './useBrowserAutomation';
 export * from './useRecruitmentMonitoring';
 export * from './useInterviews';
+export * from './useInterviewFeedback';

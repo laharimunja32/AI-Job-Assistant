@@ -764,6 +764,14 @@ class InterviewService:
             key=lambda pair: pair[1],
         )[:4]
 
+        grammar = self._compute_grammar_score(answers)
+        clarity = self._compute_clarity_score(answers)
+        problem_solving = self._compute_problem_solving_score(category_scores, technical)
+        strengths = preparation.strengths or []
+        weaknesses = preparation.weaknesses or []
+        improvement_suggestions = (preparation.recommendations or []) + ["Review answers with lower AI scores."]
+        summary_feedback = self._generate_summary_feedback(overall, strengths, weaknesses, improvement_suggestions)
+
         return {
             "overall_score": overall,
             "readiness_score": readiness,
@@ -771,9 +779,13 @@ class InterviewService:
             "technical_score": technical,
             "communication_score": communication,
             "behavioral_score": behavioral,
-            "strengths": preparation.strengths or [],
-            "weaknesses": preparation.weaknesses or [],
-            "improvement_suggestions": (preparation.recommendations or []) + ["Review answers with lower AI scores."],
+            "grammar_score": grammar,
+            "clarity_score": clarity,
+            "problem_solving_score": problem_solving,
+            "summary_feedback": summary_feedback,
+            "strengths": strengths,
+            "weaknesses": weaknesses,
+            "improvement_suggestions": improvement_suggestions,
             "missing_skills": preparation.missing_skills or [],
             "important_topics": preparation.important_topics or [],
             "practice_recommendations": preparation.practice_recommendations or [],
@@ -785,6 +797,100 @@ class InterviewService:
             "topics_to_improve": [topic for topic, _ in weakest],
             "score_breakdown": {cat: round(sum(vals) / len(vals), 1) for cat, vals in category_scores.items()},
         }
+
+    def _compute_grammar_score(self, answers: list[InterviewAnswer]) -> float:
+        if not answers:
+            return 70.0
+
+        fillers = {"um", "uh", "like", "you know", "kind of", "sort of"}
+        scores: list[float] = []
+        for answer in answers:
+            text = (answer.answer_text or "").strip()
+            if not text:
+                scores.append(40.0)
+                continue
+
+            word_count = len(text.split())
+            score = 60.0
+            if word_count >= 20:
+                score += 10.0
+            if text.endswith((".", "!", "?")):
+                score += 5.0
+            lower_text = text.lower()
+            if any(filler in lower_text for filler in fillers):
+                score -= 8.0
+            sentences = [segment for segment in re.split(r"[.!?]+", text) if segment.strip()]
+            if len(sentences) >= 2:
+                score += 5.0
+            scores.append(round(min(98.0, max(40.0, score)), 1))
+
+        return round(sum(scores) / len(scores), 1)
+
+    def _compute_clarity_score(self, answers: list[InterviewAnswer]) -> float:
+        if not answers:
+            return 70.0
+
+        clarity_keywords = [
+            "because",
+            "result",
+            "situation",
+            "task",
+            "action",
+            "first",
+            "second",
+            "finally",
+            "for example",
+        ]
+        scores: list[float] = []
+        for answer in answers:
+            text = (answer.answer_text or "").strip()
+            if not text:
+                scores.append(45.0)
+                continue
+
+            lower_text = text.lower()
+            word_count = len(text.split())
+            score = 55.0
+            if word_count >= 15:
+                score += 8.0
+            if word_count >= 30:
+                score += 7.0
+            keyword_hits = sum(1 for keyword in clarity_keywords if keyword in lower_text)
+            score += min(20.0, keyword_hits * 4.0)
+            if any(marker in text for marker in ["1.", "2.", "- ", "•"]):
+                score += 5.0
+            scores.append(round(min(98.0, max(45.0, score)), 1))
+
+        return round(sum(scores) / len(scores), 1)
+
+    def _compute_problem_solving_score(
+        self,
+        category_scores: dict[str, list[float]],
+        technical: float | None,
+    ) -> float:
+        problem_scores = category_scores.get("technical", []) + category_scores.get("project", [])
+        if problem_scores:
+            return round(sum(problem_scores) / len(problem_scores), 1)
+        if technical is not None:
+            return technical
+        return 70.0
+
+    def _generate_summary_feedback(
+        self,
+        overall: float,
+        strengths: list[str],
+        weaknesses: list[str],
+        improvement_suggestions: list[str],
+    ) -> str:
+        strength_text = strengths[0] if strengths else "structured responses"
+        weakness_text = weaknesses[0] if weaknesses else "adding more specific metrics"
+        suggestion = improvement_suggestions[0] if improvement_suggestions else "Continue practicing with timed mock sessions."
+        return (
+            f"Your overall performance scored {overall}/100. "
+            f"You demonstrated {strength_text.rstrip('.').lower()}. "
+            f"Focus on {weakness_text.rstrip('.').lower()}. "
+            f"{suggestion.rstrip('.')}."
+        )
 
     def _get_active_session(self, user: User, preparation_id: int, allow_ready: bool = False) -> InterviewSession:
         statuses = ["active", "ready_to_finish"] if allow_ready else ["active"]

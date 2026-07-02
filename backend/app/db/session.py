@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app.core.config import settings
 from app.db.base import Base
+from app.db.migrations import apply_schema_patches
 from app.db.models import Company, Job, JobSource, Profile, Resume, SearchHistory, User, WalkInEvent  # noqa: F401  Import for model registration
 from app.db.models.aggregation import AggregationRun  # noqa: F401  Import for model registration
 from app.db.models.application import Application, ApplicationHistory  # noqa: F401  Import for model registration
@@ -29,6 +30,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, expi
 def init_db() -> None:
     """Create database tables for all registered models."""
     Base.metadata.create_all(bind=engine)
+    apply_schema_patches(engine)
 
 
 def get_db():

@@ -1083,6 +1083,99 @@ export interface InterviewStatisticsDashboard {
   weakest_topics: TopicScoreItem[];
 }
 
+export interface QuestionReview {
+  question_id: number;
+  question_text: string;
+  category: string;
+  difficulty: string;
+  answer_text: string | null;
+  ai_score: number | null;
+  feedback: string | null;
+  strengths: string[];
+  improvements: string[];
+  time_spent_seconds: number | null;
+}
+
+export interface InterviewFeedbackDetail {
+  id: number;
+  session_id: number;
+  preparation_id: number;
+  job_id: number | null;
+  company_name: string | null;
+  job_title: string | null;
+  overall_score: number | null;
+  readiness_score: number | null;
+  confidence_score: number | null;
+  technical_score: number | null;
+  communication_score: number | null;
+  behavioral_score: number | null;
+  grammar_score: number | null;
+  clarity_score: number | null;
+  problem_solving_score: number | null;
+  summary_feedback: string | null;
+  strengths: string[];
+  weaknesses: string[];
+  improvement_suggestions: string[];
+  missing_skills: string[];
+  important_topics: string[];
+  practice_recommendations: string[];
+  recommended_resources: string[];
+  topics_to_improve: string[];
+  score_breakdown: Record<string, unknown>;
+  question_reviews: QuestionReview[];
+  created_at: string;
+}
+
+export interface InterviewFeedbackHistoryItem {
+  id: number;
+  session_id: number;
+  preparation_id: number;
+  job_id: number | null;
+  company_name: string | null;
+  job_title: string | null;
+  overall_score: number | null;
+  readiness_score: number | null;
+  confidence_score: number | null;
+  technical_score: number | null;
+  communication_score: number | null;
+  grammar_score: number | null;
+  clarity_score: number | null;
+  problem_solving_score: number | null;
+  created_at: string;
+}
+
+export interface InterviewFeedbackHistoryResponse {
+  items: InterviewFeedbackHistoryItem[];
+  total: number;
+  page: number;
+  size: number;
+}
+
+export interface ScoreTrendPoint {
+  feedback_id: number;
+  date: string;
+  overall_score: number | null;
+}
+
+export interface SkillDistributionPoint {
+  skill: string;
+  score: number;
+}
+
+export type PerformanceBreakdown = Record<string, number>;
+
+export interface InterviewFeedbackProgress {
+  average_score: number | null;
+  best_score: number | null;
+  latest_score: number | null;
+  completed_interviews: number;
+  strongest_skill: string | null;
+  weakest_skill: string | null;
+  score_trend: ScoreTrendPoint[];
+  skill_distribution: SkillDistributionPoint[];
+  performance_breakdown: PerformanceBreakdown;
+}
+
 export interface ApiError {
   detail: string | { msg: string; type: string }[];
 }

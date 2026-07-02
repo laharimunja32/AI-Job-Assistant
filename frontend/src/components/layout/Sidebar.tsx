@@ -21,6 +21,7 @@ import {
   Timer,
   AlarmClock,
   MessageSquare,
+  BarChart2,
 } from 'lucide-react';
 import { useUIStore } from '@/store';
 import { cn } from '@/utils';
@@ -41,6 +42,7 @@ const navItems = [
   { to: '/recruitment-emails', label: 'Recruitment Emails', icon: Mail },
   { to: '/assessments', label: 'Assessments', icon: ClipboardCheck },
   { to: '/interview-prep/history', label: 'Interview Prep', icon: MessageSquare },
+  { to: '/interview-feedback', label: 'Interview Feedback', icon: BarChart2 },
   { to: '/interviews', label: 'Interviews', icon: CalendarClock },
   { to: '/timeline', label: 'Timeline', icon: Timer },
   { to: '/reminders', label: 'Reminders', icon: AlarmClock },

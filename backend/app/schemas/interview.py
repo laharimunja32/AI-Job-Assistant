@@ -132,6 +132,10 @@ class InterviewFeedbackRead(BaseModel):
     technical_score: float | None = None
     communication_score: float | None = None
     behavioral_score: float | None = None
+    grammar_score: float | None = None
+    clarity_score: float | None = None
+    problem_solving_score: float | None = None
+    summary_feedback: str | None = None
     strengths: list[str] = Field(default_factory=list)
     weaknesses: list[str] = Field(default_factory=list)
     improvement_suggestions: list[str] = Field(default_factory=list)

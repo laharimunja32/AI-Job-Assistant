@@ -7,6 +7,7 @@ from app.api.v1.endpoints import (
     cover_letters,
     dashboard,
     health,
+    interview_feedback,
     interviews,
     jobs,
     matches,
@@ -32,3 +33,4 @@ router.include_router(applications.router)
 router.include_router(browser.router)
 router.include_router(recruitment_monitoring.router)
 router.include_router(interviews.router)
+router.include_router(interview_feedback.router)
