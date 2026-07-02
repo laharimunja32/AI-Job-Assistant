@@ -1,6 +1,49 @@
 # Backend
 
-This module contains the FastAPI backend for the AI Job Assistant. The current milestone adds a production-ready profile and resume management layer with persistent storage, validation, pagination, and REST endpoints.
+FastAPI backend for the AI Job Assistant.
+
+## Milestone 17 – Interview Preparation
+
+### Models (`app/db/models/interview.py`)
+- `InterviewPreparation` – AI-generated prep package with scores, topics, versioning, cache signature
+- `InterviewQuestion` – categorized questions (company, HR, behavioral, technical, project, resume)
+- `InterviewAnswer` – per-question user answers with AI scoring
+- `InterviewFeedback` – aggregated session feedback
+- `InterviewSession` – interactive mock interview state
+
+### Service (`app/services/interview_service.py`)
+- Generation from job description, resume, tailored resume, cover letter, profile, skills, ATS keywords
+- Background queue via `ThreadPoolExecutor` with `queued → processing → completed | failed`
+- Cache reuse by user/job/resume/profile/cover-letter versions (`generation_signature`)
+- Session lifecycle: start, answer, finish, history, statistics
+- Dashboard helpers: `recent_for_dashboard()`, `stats_for_dashboard()`
+
+### API (`app/api/v1/endpoints/interviews.py`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/v1/interviews/generate/{job_id}` | Generate preparation |
+| GET | `/api/v1/interviews/history` | Practice history |
+| GET | `/api/v1/interviews/statistics` | Aggregate stats |
+| GET | `/api/v1/interviews/{id}` | Get preparation + questions |
+| DELETE | `/api/v1/interviews/{id}` | Delete preparation |
+| POST | `/api/v1/interviews/{id}/start` | Start practice session |
+| POST | `/api/v1/interviews/{id}/answer` | Submit answer |
+| POST | `/api/v1/interviews/{id}/finish` | Finish session |
+| GET | `/api/v1/interviews/{id}/feedback` | Get feedback |
+
+All endpoints require authentication and enforce per-user ownership.
+
+### Dashboard integration
+Extended `app/schemas/dashboard.py` and `app/services/dashboard/dashboard_service.py` with:
+- `recent_interviews`, `interview_statistics`
+- `average_interview_readiness`, `average_interview_confidence`, `interview_practice_sessions`, `interview_questions_answered`
+
+### Tests
+```bash
+python -m pytest backend/app/tests/test_interviews.py
+```
+
+## Earlier milestones
 
 ## Created files
 

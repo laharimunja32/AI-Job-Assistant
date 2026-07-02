@@ -1,0 +1,19 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Python cache
+__pycache__/
+*.pyc
+
+# backend runtime files
+backend/uploads/
+app.db
+
+# OS files
+.DS_Store
