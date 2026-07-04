@@ -1,6 +1,36 @@
 # AI Job Application Assistant
 
-Full-stack AI-powered job application platform with resume tailoring, cover letters, applications, browser automation, recruitment monitoring, and **AI interview preparation**.
+Full-stack AI-powered job application platform with live job search, saved jobs, browser-assisted applications, resume tailoring, cover letters, recruitment monitoring, and AI interview preparation.
+
+## Milestone 21 – Live Job Search, Browser Automation & Final Platform Integration
+
+### Workflow
+1. **Live Job Search** – Search with keyword, location, company, salary, experience, work mode, and date filters (`POST /api/v1/job-search/search`)
+2. **Save Jobs** – Bookmark interesting roles (`POST /api/v1/saved-jobs`)
+3. **Browser Application** – Start automated apply flow (`POST /api/v1/browser-application/start`)
+4. **Review & Submit** – Confirm submission (`POST /api/v1/browser-application/{id}/submit`)
+5. **Track History** – View automation runs on dashboard and Application History page
+
+### Architecture
+- **Backend models**: `LiveJobSearch`, `SavedJob`, `BrowserAutomationRecord`
+- **Services**: `job_search_service.py`, `saved_job_service.py`, `browser_application_service.py` (reuses `app/services/browser/`)
+- **API**: `/job-search`, `/saved-jobs`, `/browser-application`
+- **Frontend**: `frontend/src/pages/job-search/`, components in `frontend/src/components/job-search/`
+- **Dashboard**: applications today/week, saved jobs count, automation success rate, recent applications & saved jobs
+
+### Pages
+| Route | Page |
+|-------|------|
+| `/job-search` | Live job search with advanced filters |
+| `/saved-jobs` | Saved job bookmarks |
+| `/browser-application` | Start browser-assisted apply |
+| `/application-history` | Automation history table |
+
+### Testing
+```bash
+python -m pytest backend/app/tests/
+cd frontend && npm test && npm run build
+```
 
 ## Milestone 17 – AI Interview Preparation System
 

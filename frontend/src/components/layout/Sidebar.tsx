@@ -21,6 +21,9 @@ import {
   Timer,
   AlarmClock,
   MessageSquare,
+  Search,
+  Bookmark,
+  History,
 } from 'lucide-react';
 import { useUIStore } from '@/store';
 import { cn } from '@/utils';
@@ -28,6 +31,9 @@ import { cn } from '@/utils';
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/jobs', label: 'Jobs', icon: Briefcase },
+  { to: '/job-search', label: 'Job Search', icon: Search },
+  { to: '/saved-jobs', label: 'Saved Jobs', icon: Bookmark },
+  { to: '/application-history', label: 'Application History', icon: History },
   { to: '/walk-ins', label: 'Walk-ins', icon: Users },
   { to: '/resumes', label: 'Resumes', icon: FileText },
   { to: '/profile', label: 'Profile', icon: User },

@@ -11,7 +11,19 @@ from app.db.session import init_db
 async def lifespan(app: FastAPI):
     """Initialize database resources when the application starts."""
     init_db()
+    try:
+        from app.services.browser.browser_manager import BrowserManager
+
+        app.state.browser_manager = BrowserManager()
+    except Exception:
+        app.state.browser_manager = None
     yield
+    manager = getattr(app.state, "browser_manager", None)
+    if manager is not None:
+        try:
+            manager.shutdown()
+        except Exception:
+            pass
 
 
 def create_app() -> FastAPI:

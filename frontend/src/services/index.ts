@@ -13,3 +13,6 @@ export * from './health.service';
 export * from './browser.service';
 export * from './recruitmentMonitoring.service';
 export * from './interviews.service';
+export * from './jobSearch.service';
+export * from './savedJobs.service';
+export * from './browserApplication.service';

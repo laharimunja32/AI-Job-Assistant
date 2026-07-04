@@ -226,6 +226,29 @@ export interface DashboardStatistics {
   interview_questions_answered: number;
   average_interview_readiness: number | null;
   average_interview_confidence: number | null;
+  saved_jobs_count: number;
+  applications_this_week: number;
+  automation_success_rate: number;
+  browser_applications_today: number;
+}
+
+export interface RecentSavedJobItem {
+  id: number;
+  job_id: number | null;
+  job_title: string;
+  company_name: string;
+  location: string | null;
+  saved_at: string;
+}
+
+export interface RecentAutomationApplicationItem {
+  id: number;
+  company_name: string;
+  job_title: string;
+  status: string;
+  applied_date: string | null;
+  duration_seconds: number | null;
+  created_at: string;
 }
 
 export interface ProfileSummary {
@@ -289,6 +312,8 @@ export interface DashboardResponse {
   recruitment_summary: RecruitmentSummary;
   recent_interviews: RecentInterviewItem[];
   interview_statistics: InterviewStatisticsDashboard;
+  recent_saved_jobs: RecentSavedJobItem[];
+  recent_automation_applications: RecentAutomationApplicationItem[];
 }
 
 export interface RecruitmentTimelineDigestItem {

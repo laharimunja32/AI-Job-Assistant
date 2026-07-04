@@ -1,6 +1,6 @@
 ﻿import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { Briefcase, TrendingUp, MapPin, Users, Target, ClipboardList, Star, XCircle } from 'lucide-react';
+import { Briefcase, TrendingUp, MapPin, Users, Target, ClipboardList, Star, XCircle, Bookmark, Zap } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import type { DashboardStatistics } from '@/types';
 
@@ -62,6 +62,10 @@ export function DashboardStats({ stats }: { stats: DashboardStatistics }) {
         icon={<Users className="h-5 w-5" />}
         href="/profile"
       />
+      <StatCard label="Applications Today" value={stats.browser_applications_today} icon={<Zap className="h-5 w-5" />} href="/application-history" />
+      <StatCard label="Applications This Week" value={stats.applications_this_week} icon={<ClipboardList className="h-5 w-5" />} href="/application-history" />
+      <StatCard label="Saved Jobs" value={stats.saved_jobs_count} icon={<Bookmark className="h-5 w-5" />} href="/saved-jobs" />
+      <StatCard label="Automation Success" value={`${Math.round(stats.automation_success_rate)}%`} icon={<Target className="h-5 w-5" />} href="/browser-application" />
     </div>
   );
 }

@@ -1,5 +1,8 @@
 from app.db.models.aggregation import AggregationRun
 from app.db.models.application import Application, ApplicationHistory
+from app.db.models.application_history import BrowserAutomationRecord
+from app.db.models.job_search import LiveJobSearch
+from app.db.models.saved_job import SavedJob
 from app.db.models.browser_session import BrowserSession, BrowserUploadAttempt
 from app.db.models.cover_letter import CoverLetterGenerationHistory, CoverLetterTemplate, GeneratedCoverLetter
 from app.db.models.interview import (
@@ -24,6 +27,9 @@ __all__ = [
     "AggregationRun",
     "Application",
     "ApplicationHistory",
+    "BrowserAutomationRecord",
+    "LiveJobSearch",
+    "SavedJob",
     "BrowserSession",
     "BrowserUploadAttempt",
     "Company",
