@@ -282,6 +282,9 @@ export interface DashboardResponse {
   resume_generation_history: ResumeGenerationHistoryItem[];
   resume_ats_average: number | null;
   resume_improvement_suggestions: string[];
+  resume_optimization_statistics: ResumeOptimizationStatistics;
+  latest_resume_optimization: LatestResumeOptimizationItem | null;
+  recent_resume_optimizations: RecentResumeOptimizationItem[];
   recent_cover_letters: RecentCoverLetterItem[];
   cover_letter_generation_history: CoverLetterGenerationHistoryItem[];
   recent_cover_letter_templates: RecentCoverLetterTemplateItem[];
@@ -427,6 +430,79 @@ export interface ResumeGenerationHistoryItem {
   message: string | null;
   ats_score: number | null;
   generated_at: string | null;
+  created_at: string;
+}
+
+export interface ResumeOptimizationStatistics {
+  average_ats_score: number | null;
+  highest_ats_score: number | null;
+  total_optimizations: number;
+}
+
+export interface RecentResumeOptimizationItem {
+  id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  ats_score: number;
+  overall_score: number;
+  created_at: string;
+}
+
+export interface LatestResumeOptimizationItem {
+  id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  ats_score: number;
+  overall_score: number;
+  created_at: string;
+}
+
+export interface ResumeOptimizationAnalyzeResponse {
+  id: number;
+  ats_score: number;
+  overall_score: number;
+  keyword_match: number;
+  skill_match: number;
+  experience_match: number;
+  education_match: number;
+  matched_keywords: string[];
+  missing_keywords: string[];
+  matched_skills: string[];
+  missing_skills: string[];
+  recommendations: string[];
+  tailored_resume: string;
+}
+
+export interface ResumeOptimizationHistoryItem {
+  id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  ats_score: number;
+  overall_score: number;
+  created_at: string;
+}
+
+export interface ResumeOptimization {
+  id: number;
+  user_id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  ats_score: number;
+  overall_score: number;
+  keyword_match: number;
+  skill_match: number;
+  experience_match: number;
+  education_match: number;
+  matched_keywords: string[];
+  missing_keywords: string[];
+  matched_skills: string[];
+  missing_skills: string[];
+  recommendations: string[];
+  tailored_resume: string | null;
   created_at: string;
 }
 

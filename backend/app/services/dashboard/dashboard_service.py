@@ -21,6 +21,7 @@ from app.services.jobs.match_service import JobMatch, JobMatchService
 from app.services.cover_letter_service import CoverLetterService
 from app.services.interview_service import InterviewService
 from app.services.recruitment_monitoring_service import RecruitmentMonitoringService
+from app.services.resume_optimizer_service import ResumeOptimizerService
 from app.services.resume_tailoring_service import ResumeTailoringService
 
 logger = logging.getLogger(__name__)
@@ -34,6 +35,7 @@ class DashboardService:
         self.cache = cache or DashboardCache()
         self.match_service = match_service or JobMatchService(db=db)
         self.resume_tailoring = ResumeTailoringService(db=db)
+        self.resume_optimizer = ResumeOptimizerService(db=db)
         self.cover_letters = CoverLetterService(db=db)
         self.interviews = InterviewService(db=db)
         self.recruitment_monitoring = RecruitmentMonitoringService(db=db)
@@ -66,6 +68,9 @@ class DashboardService:
             "resume_generation_history": self.resume_tailoring.history_for_dashboard(user),
             "resume_ats_average": self.resume_tailoring.ats_average_for_dashboard(user),
             "resume_improvement_suggestions": self.resume_tailoring.suggestions_for_dashboard(user),
+            "resume_optimization_statistics": self._resume_optimization_statistics(user),
+            "latest_resume_optimization": self.resume_optimizer.latest_for_dashboard(user),
+            "recent_resume_optimizations": self.resume_optimizer.recent_for_dashboard(user),
             "recent_cover_letters": self.cover_letters.recent_for_dashboard(user),
             "cover_letter_generation_history": self.cover_letters.history_for_dashboard(user),
             "recent_cover_letter_templates": self.cover_letters.template_usage_for_dashboard(user),
@@ -422,6 +427,13 @@ class DashboardService:
             "source": event.source,
             "event_status": event.event_status,
             "created_at": event.created_at,
+        }
+
+    def _resume_optimization_statistics(self, user: User) -> dict[str, Any]:
+        return {
+            "average_ats_score": self.resume_optimizer.average_ats_for_dashboard(user),
+            "highest_ats_score": self.resume_optimizer.highest_ats_for_dashboard(user),
+            "total_optimizations": self.resume_optimizer.count_for_dashboard(user),
         }
 
     def _profile_summary(self, profile: Profile | None) -> dict[str, Any]:

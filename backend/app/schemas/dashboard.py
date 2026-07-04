@@ -171,6 +171,32 @@ class RecentTailoredResumeItem(BaseModel):
     status: str
 
 
+class ResumeOptimizationStatistics(BaseModel):
+    average_ats_score: float | None = None
+    highest_ats_score: float | None = None
+    total_optimizations: int = 0
+
+
+class RecentResumeOptimizationItem(BaseModel):
+    id: int
+    resume_id: int
+    job_title: str | None = None
+    company_name: str | None = None
+    ats_score: float
+    overall_score: float
+    created_at: datetime
+
+
+class LatestResumeOptimizationItem(BaseModel):
+    id: int
+    resume_id: int
+    job_title: str | None = None
+    company_name: str | None = None
+    ats_score: float
+    overall_score: float
+    created_at: datetime
+
+
 class ResumeGenerationHistoryItem(BaseModel):
     id: int
     tailored_resume_id: int | None = None
@@ -285,6 +311,9 @@ class DashboardResponse(BaseModel):
     resume_generation_history: list[ResumeGenerationHistoryItem] = Field(default_factory=list)
     resume_ats_average: float | None = None
     resume_improvement_suggestions: list[str] = Field(default_factory=list)
+    resume_optimization_statistics: ResumeOptimizationStatistics
+    latest_resume_optimization: LatestResumeOptimizationItem | None = None
+    recent_resume_optimizations: list[RecentResumeOptimizationItem] = Field(default_factory=list)
     recent_cover_letters: list[RecentCoverLetterItem] = Field(default_factory=list)
     cover_letter_generation_history: list[CoverLetterGenerationHistoryItem] = Field(default_factory=list)
     recent_cover_letter_templates: list[RecentCoverLetterTemplateItem] = Field(default_factory=list)

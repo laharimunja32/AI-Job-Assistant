@@ -2,6 +2,32 @@
 
 FastAPI backend for the AI Job Assistant.
 
+## Milestone 19 – Resume Optimizer
+
+### Model (`app/db/models/resume_optimization.py`)
+- `ResumeOptimization` – stores ATS analysis results, scores, keywords, skills, recommendations, tailored resume text
+
+### Service (`app/services/resume_optimizer_service.py`)
+- Parses resume text and job description
+- Compares skills/keywords against verified user inventory (profile + resume)
+- Computes ATS, keyword, skill, experience, education, and overall scores
+- Generates tailored resume without inventing credentials
+- PDF/DOCX output in `uploads/optimized_resumes/`
+
+### API (`app/api/v1/endpoints/resume_optimizer.py`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/v1/resume-optimizer/analyze` | Analyze resume vs JD |
+| GET | `/api/v1/resume-optimizer/history` | List analyses |
+| GET | `/api/v1/resume-optimizer/{analysis_id}` | Get full analysis |
+| DELETE | `/api/v1/resume-optimizer/{analysis_id}` | Delete analysis |
+| GET | `/api/v1/resume-optimizer/{analysis_id}/download` | Download PDF/DOCX |
+
+### Tests
+```bash
+python -m pytest backend/app/tests/test_resume_optimizer.py
+```
+
 ## Milestone 17 – Interview Preparation
 
 ### Models (`app/db/models/interview.py`)

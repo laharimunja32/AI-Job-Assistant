@@ -17,6 +17,7 @@ from app.db.models.interview import (  # noqa: F401  Import for model registrati
 )
 from app.db.models.recruitment_monitoring import Assessment, EmailEvent, Interview, NotificationHistory, Reminder, TimelineEvent  # noqa: F401  Import for model registration
 from app.db.models.submission_review import SubmissionReviewAudit  # noqa: F401  Import for model registration
+from app.db.models.resume_optimization import ResumeOptimization  # noqa: F401  Import for model registration
 from app.db.models.resume_tailoring import ResumeGenerationHistory, ResumeTemplate, TailoredResume  # noqa: F401  Import for model registration
 from app.services.jobs.match_service import JobMatch  # noqa: F401  Import for model registration
 

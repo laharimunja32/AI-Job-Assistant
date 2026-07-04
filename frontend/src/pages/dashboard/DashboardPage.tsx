@@ -1,4 +1,5 @@
 ﻿import { RefreshCw } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useDashboard, useRefreshDashboard } from '@/hooks';
 import { DashboardStats } from '@/components/dashboard/StatCard';
 import { DashboardSection } from '@/components/dashboard/DashboardSection';
@@ -338,7 +339,7 @@ export default function DashboardPage() {
         <DashboardSection title="Resume ATS Insights">
           <Card>
             <p className="text-sm text-slate-500">Average ATS score</p>
-            <p className="mt-1 text-2xl font-bold">{data.resume_ats_average ?? 'ΓÇö'}</p>
+            <p className="mt-1 text-2xl font-bold">{data.resume_ats_average ?? '—'}</p>
           </Card>
         </DashboardSection>
 
@@ -356,6 +357,53 @@ export default function DashboardPage() {
           </Card>
         </DashboardSection>
       </div>
+
+      <DashboardSection title="Resume Analytics">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="p-4">
+            <p className="text-sm text-slate-500">Average ATS Score</p>
+            <p className="mt-1 text-2xl font-bold">{data.resume_optimization_statistics.average_ats_score ?? '—'}</p>
+          </Card>
+          <Card className="p-4">
+            <p className="text-sm text-slate-500">Highest ATS Score</p>
+            <p className="mt-1 text-2xl font-bold">{data.resume_optimization_statistics.highest_ats_score ?? '—'}</p>
+          </Card>
+          <Card className="p-4">
+            <p className="text-sm text-slate-500">Total Optimizations</p>
+            <p className="mt-1 text-2xl font-bold">{data.resume_optimization_statistics.total_optimizations}</p>
+          </Card>
+          <Card className="p-4">
+            <p className="text-sm text-slate-500">Latest Optimization</p>
+            {data.latest_resume_optimization ? (
+              <div className="mt-1">
+                <p className="font-semibold">{data.latest_resume_optimization.job_title ?? 'Analysis'}</p>
+                <p className="text-xs text-slate-500">ATS {Math.round(data.latest_resume_optimization.ats_score)}</p>
+              </div>
+            ) : (
+              <p className="mt-1 text-2xl font-bold">—</p>
+            )}
+          </Card>
+        </div>
+        {data.recent_resume_optimizations.length > 0 && (
+          <Card className="mt-4 p-4">
+            <div className="mb-3 flex items-center justify-between">
+              <h3 className="text-sm font-semibold">Resume Optimizations</h3>
+              <Link to="/resume-optimizer/history" className="text-xs text-brand-600 hover:underline">View all</Link>
+            </div>
+            <div className="space-y-2">
+              {data.recent_resume_optimizations.map((item) => (
+                <Link key={item.id} to={`/resume-optimizer/${item.id}`} className="flex items-center justify-between rounded-lg border border-slate-200 p-3 text-sm hover:border-brand-300 dark:border-slate-700">
+                  <div>
+                    <p className="font-medium">{item.job_title ?? 'Untitled Role'}</p>
+                    <p className="text-xs text-slate-500">{formatDate(item.created_at)}</p>
+                  </div>
+                  <Badge variant="info">ATS {Math.round(item.ats_score)}</Badge>
+                </Link>
+              ))}
+            </div>
+          </Card>
+        )}
+      </DashboardSection>
 
       <div className="grid gap-8 lg:grid-cols-2">
         <DashboardSection title="Recently Added Companies" viewAllHref="/jobs">

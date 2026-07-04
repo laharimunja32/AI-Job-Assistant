@@ -12,6 +12,7 @@ from app.api.v1.endpoints import (
     matches,
     profile,
     recruitment_monitoring,
+    resume_optimizer,
     resume_tailoring,
     resumes,
     walk_ins,
@@ -27,6 +28,7 @@ router.include_router(matches.router)
 router.include_router(walk_ins.router)
 router.include_router(dashboard.router)
 router.include_router(resume_tailoring.router)
+router.include_router(resume_optimizer.router)
 router.include_router(cover_letters.router)
 router.include_router(applications.router)
 router.include_router(browser.router)

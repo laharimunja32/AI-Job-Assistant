@@ -15,6 +15,9 @@ const WalkInsPage = lazy(() => import('@/pages/walk-ins/WalkInsPage'));
 const WalkInDetailPage = lazy(() => import('@/pages/walk-ins/WalkInDetailPage'));
 const ResumesPage = lazy(() => import('@/pages/resumes/ResumesPage'));
 const ResumeDetailPage = lazy(() => import('@/pages/resumes/ResumeDetailPage'));
+const ResumeOptimizerPage = lazy(() => import('@/pages/resume-optimizer/ResumeOptimizerPage'));
+const ResumeOptimizationHistoryPage = lazy(() => import('@/pages/resume-optimizer/ResumeOptimizationHistoryPage'));
+const ResumeOptimizationDetailPage = lazy(() => import('@/pages/resume-optimizer/ResumeOptimizationDetailPage'));
 const ProfilePage = lazy(() => import('@/pages/profile/ProfilePage'));
 const ApplicationsPage = lazy(() => import('@/pages/applications/ApplicationsPage'));
 const NotificationsPage = lazy(() => import('@/pages/notifications/NotificationsPage'));
@@ -53,6 +56,9 @@ export const router = createBrowserRouter([
       { path: 'walk-ins/:id', element: <Lazy><WalkInDetailPage /></Lazy> },
       { path: 'resumes', element: <Lazy><ResumesPage /></Lazy> },
       { path: 'resumes/:id', element: <Lazy><ResumeDetailPage /></Lazy> },
+      { path: 'resume-optimizer', element: <Lazy><ResumeOptimizerPage /></Lazy> },
+      { path: 'resume-optimizer/history', element: <Lazy><ResumeOptimizationHistoryPage /></Lazy> },
+      { path: 'resume-optimizer/:id', element: <Lazy><ResumeOptimizationDetailPage /></Lazy> },
       { path: 'profile', element: <Lazy><ProfilePage /></Lazy> },
       { path: 'applications', element: <Lazy><ApplicationsPage /></Lazy> },
       { path: 'notifications', element: <Lazy><NotificationsPage /></Lazy> },

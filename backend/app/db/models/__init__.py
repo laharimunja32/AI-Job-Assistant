@@ -11,6 +11,7 @@ from app.db.models.interview import (
 )
 from app.db.models.job import Company, Job, JobSource, SearchHistory
 from app.db.models.walk_in import WalkInEvent
+from app.db.models.resume_optimization import ResumeOptimization
 from app.db.models.resume_tailoring import ResumeGenerationHistory, ResumeTemplate, TailoredResume
 from app.db.models.recruitment_monitoring import Assessment, EmailEvent, Interview, NotificationHistory, Reminder, TimelineEvent
 from app.db.models.submission_review import SubmissionReviewAudit
@@ -41,6 +42,7 @@ __all__ = [
     "Profile",
     "Resume",
     "ResumeGenerationHistory",
+    "ResumeOptimization",
     "ResumeTemplate",
     "SearchHistory",
     "EmailEvent",
