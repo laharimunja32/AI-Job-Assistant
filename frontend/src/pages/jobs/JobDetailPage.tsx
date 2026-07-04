@@ -6,9 +6,9 @@ import {
   useMatchJob,
   useGenerateTailoredResume,
   useTailoredResume,
-  useGenerateCoverLetter,
+  useGenerateJobCoverLetter,
   useCoverLetter,
-  useCoverLetterHistory,
+  useJobCoverLetterHistory,
   useCoverLetterTemplates,
   useResumes,
   useTailoredResumeHistory,
@@ -76,13 +76,13 @@ export default function JobDetailPage() {
     if (generationStatus === 'failed') return 'Failed';
     return 'Preparing';
   }, [generationStatus]);
-  const generateCoverLetterMutation = useGenerateCoverLetter();
+  const generateCoverLetterMutation = useGenerateJobCoverLetter();
   const generateInterviewMutation = useGenerateInterview();
   const [interviewPrepId, setInterviewPrepId] = useState<number | null>(null);
   const [interviewPrepOpen, setInterviewPrepOpen] = useState(false);
   const { data: interviewPreparation } = useInterviewPreparation(interviewPrepId ?? 0, Boolean(interviewPrepId), interviewPrepId ? 2000 : false);
   const { data: generatedCoverLetter } = useCoverLetter(coverLetterId ?? 0, Boolean(coverLetterId), coverLetterId ? 2000 : false);
-  const { data: coverLetterHistory } = useCoverLetterHistory(1, 10);
+  const { data: coverLetterHistory } = useJobCoverLetterHistory(1, 10);
   const { data: coverLetterTemplates } = useCoverLetterTemplates();
   const coverLetterStatus = generatedCoverLetter?.status ?? (generateCoverLetterMutation.isPending ? 'queued' : null);
   const coverLetterDone = coverLetterStatus === 'completed';

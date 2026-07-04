@@ -2,6 +2,7 @@ from app.db.models.aggregation import AggregationRun
 from app.db.models.application import Application, ApplicationHistory
 from app.db.models.browser_session import BrowserSession, BrowserUploadAttempt
 from app.db.models.cover_letter import CoverLetterGenerationHistory, CoverLetterTemplate, GeneratedCoverLetter
+from app.db.models.cover_letter_generator import CoverLetter
 from app.db.models.interview import (
     InterviewAnswer,
     InterviewFeedback,
@@ -28,6 +29,7 @@ __all__ = [
     "BrowserSession",
     "BrowserUploadAttempt",
     "Company",
+    "CoverLetter",
     "CoverLetterGenerationHistory",
     "CoverLetterTemplate",
     "GeneratedCoverLetter",

@@ -18,6 +18,7 @@ from app.db.models.user import User
 from app.db.models.walk_in import WalkInEvent
 from app.services.dashboard.cache import DashboardCache
 from app.services.jobs.match_service import JobMatch, JobMatchService
+from app.services.cover_letter_generator_service import CoverLetterGeneratorService
 from app.services.cover_letter_service import CoverLetterService
 from app.services.interview_service import InterviewService
 from app.services.recruitment_monitoring_service import RecruitmentMonitoringService
@@ -37,6 +38,7 @@ class DashboardService:
         self.resume_tailoring = ResumeTailoringService(db=db)
         self.resume_optimizer = ResumeOptimizerService(db=db)
         self.cover_letters = CoverLetterService(db=db)
+        self.cover_letter_generator = CoverLetterGeneratorService(db=db)
         self.interviews = InterviewService(db=db)
         self.recruitment_monitoring = RecruitmentMonitoringService(db=db)
 
@@ -75,6 +77,9 @@ class DashboardService:
             "cover_letter_generation_history": self.cover_letters.history_for_dashboard(user),
             "recent_cover_letter_templates": self.cover_letters.template_usage_for_dashboard(user),
             "cover_letter_statistics": self.cover_letters.stats_for_dashboard(user),
+            "cover_letter_generator_statistics": self.cover_letter_generator.stats_for_dashboard(user),
+            "latest_cover_letter_generator": self.cover_letter_generator.latest_for_dashboard(user),
+            "recent_cover_letter_generators": self.cover_letter_generator.recent_for_dashboard(user),
             "recruitment_summary": self.recruitment_monitoring.dashboard_summary(user),
             "recent_interviews": self.interviews.recent_for_dashboard(user),
             "interview_statistics": self.interviews.stats_for_dashboard(user),

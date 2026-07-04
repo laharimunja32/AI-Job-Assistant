@@ -8,6 +8,7 @@ export * from './resumes.service';
 export * from './matches.service';
 export * from './resumeTailoring.service';
 export * from './resumeOptimizer.service';
+export * from './coverLetterGenerator.service';
 export * from './coverLetters.service';
 export * from './applications.service';
 export * from './health.service';

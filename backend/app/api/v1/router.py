@@ -4,6 +4,7 @@ from app.api.v1.endpoints import (
     applications,
     auth,
     browser,
+    cover_letter_generator,
     cover_letters,
     dashboard,
     health,
@@ -29,6 +30,7 @@ router.include_router(walk_ins.router)
 router.include_router(dashboard.router)
 router.include_router(resume_tailoring.router)
 router.include_router(resume_optimizer.router)
+router.include_router(cover_letter_generator.router)
 router.include_router(cover_letters.router)
 router.include_router(applications.router)
 router.include_router(browser.router)

@@ -6,6 +6,7 @@ export * from './useResumes';
 export * from './useMatches';
 export * from './useResumeTailoring';
 export * from './useResumeOptimizer';
+export * from './useCoverLetterGenerator';
 export * from './useCoverLetters';
 export * from './useApplications';
 export * from './useHealth';

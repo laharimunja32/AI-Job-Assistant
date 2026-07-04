@@ -34,6 +34,7 @@ const navItems = [
   { to: '/resumes', label: 'Resumes', icon: FileText },
   { to: '/jobs', label: 'Resume Tailoring', icon: Wand2 },
   { to: '/resume-optimizer', label: 'Resume Optimizer', icon: ScanSearch },
+  { to: '/cover-letter-generator', label: 'Cover Letter Generator', icon: Mail },
   { to: '/profile', label: 'Profile', icon: User },
   { to: '/applications', label: 'Applications', icon: ClipboardList },
   { to: '/notifications', label: 'Notifications', icon: Bell },

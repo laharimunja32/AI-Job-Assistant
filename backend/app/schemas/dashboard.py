@@ -237,6 +237,32 @@ class RecentCoverLetterTemplateItem(BaseModel):
     updated_at: datetime
 
 
+class LatestCoverLetterGeneratorItem(BaseModel):
+    id: int
+    resume_id: int
+    job_title: str | None = None
+    company_name: str | None = None
+    template_name: str
+    tone: str
+    created_at: datetime
+
+
+class CoverLetterGeneratorStatistics(BaseModel):
+    total_generated: int = 0
+    generated_this_week: int = 0
+    most_used_template: str | None = None
+
+
+class RecentCoverLetterGeneratorItem(BaseModel):
+    id: int
+    resume_id: int
+    job_title: str | None = None
+    company_name: str | None = None
+    template_name: str
+    tone: str
+    created_at: datetime
+
+
 class CoverLetterStatistics(BaseModel):
     total_generated: int
     queued_or_processing: int
@@ -318,6 +344,9 @@ class DashboardResponse(BaseModel):
     cover_letter_generation_history: list[CoverLetterGenerationHistoryItem] = Field(default_factory=list)
     recent_cover_letter_templates: list[RecentCoverLetterTemplateItem] = Field(default_factory=list)
     cover_letter_statistics: CoverLetterStatistics
+    cover_letter_generator_statistics: CoverLetterGeneratorStatistics
+    latest_cover_letter_generator: LatestCoverLetterGeneratorItem | None = None
+    recent_cover_letter_generators: list[RecentCoverLetterGeneratorItem] = Field(default_factory=list)
     recruitment_summary: RecruitmentSummary
     recent_interviews: list[RecentInterviewItem] = Field(default_factory=list)
     interview_statistics: InterviewStatisticsDashboard

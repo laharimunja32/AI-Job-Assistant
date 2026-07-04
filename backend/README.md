@@ -2,6 +2,42 @@
 
 FastAPI backend for the AI Job Assistant.
 
+## Milestone 20 – Cover Letter Generator
+
+### Model (`app/db/models/cover_letter_generator.py`)
+- `CoverLetter` – stores generated letters with resume/JD context, template, tone, length, and file paths
+
+### Service (`app/services/cover_letter_generator_service.py`)
+- Extracts skills from resume and keywords from job description
+- Generates introduction, experience section, skills alignment, and closing
+- Never invents experience — only uses resume/profile data
+- Templates: `professional`, `modern`, `simple`
+- Tones: `professional`, `friendly`, `formal`, `confident`
+- Lengths: `short`, `medium`, `long`
+- PDF/DOCX output in `uploads/cover_letters_generator/`
+
+### API (`app/api/v1/endpoints/cover_letter_generator.py`)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/v1/cover-letter-generator/generate` | Generate cover letter |
+| GET | `/api/v1/cover-letter-generator/history` | List letters |
+| GET | `/api/v1/cover-letter-generator/{id}` | Get letter detail |
+| PUT | `/api/v1/cover-letter-generator/{id}` | Update letter content |
+| DELETE | `/api/v1/cover-letter-generator/{id}` | Delete letter |
+| GET | `/api/v1/cover-letter-generator/{id}/download` | Download PDF/DOCX |
+
+### Dashboard integration
+Extended `app/schemas/dashboard.py` and `app/services/dashboard/dashboard_service.py` with:
+- `cover_letter_generator_statistics` (total, this week, most used template)
+- `latest_cover_letter_generator`, `recent_cover_letter_generators`
+
+### Tests
+```bash
+python -m pytest backend/app/tests/test_cover_letter_generator.py
+```
+
+> The existing job-based cover letter module (`app/services/cover_letter_service.py`, `/api/v1/cover-letters`) is unchanged.
+
 ## Milestone 19 – Resume Optimizer
 
 ### Model (`app/db/models/resume_optimization.py`)

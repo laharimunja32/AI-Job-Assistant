@@ -1,6 +1,7 @@
 from app.api.v1.endpoints.applications import router as applications_router
 from app.api.v1.endpoints.auth import router as auth_router
 from app.api.v1.endpoints.browser import router as browser_router
+from app.api.v1.endpoints.cover_letter_generator import router as cover_letter_generator_router
 from app.api.v1.endpoints.cover_letters import router as cover_letters_router
 from app.api.v1.endpoints.dashboard import router as dashboard_router
 from app.api.v1.endpoints.health import router as health_router
@@ -18,6 +19,7 @@ __all__ = [
     "applications_router",
     "auth_router",
     "browser_router",
+    "cover_letter_generator_router",
     "cover_letters_router",
     "dashboard_router",
     "health_router",

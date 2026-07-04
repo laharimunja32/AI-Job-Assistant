@@ -289,6 +289,9 @@ export interface DashboardResponse {
   cover_letter_generation_history: CoverLetterGenerationHistoryItem[];
   recent_cover_letter_templates: RecentCoverLetterTemplateItem[];
   cover_letter_statistics: CoverLetterStatistics;
+  cover_letter_generator_statistics: CoverLetterGeneratorStatistics;
+  latest_cover_letter_generator: LatestCoverLetterGeneratorItem | null;
+  recent_cover_letter_generators: RecentCoverLetterGeneratorItem[];
   recruitment_summary: RecruitmentSummary;
   recent_interviews: RecentInterviewItem[];
   interview_statistics: InterviewStatisticsDashboard;
@@ -503,6 +506,68 @@ export interface ResumeOptimization {
   missing_skills: string[];
   recommendations: string[];
   tailored_resume: string | null;
+  created_at: string;
+}
+
+export interface GenerateCoverLetterResponse {
+  id: number;
+  job_title: string | null;
+  company_name: string | null;
+  template_name: string;
+  tone: string;
+  length: string;
+  generated_letter: string;
+}
+
+export interface CoverLetterGeneratorHistoryItem {
+  id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  template_name: string;
+  tone: string;
+  length: string;
+  created_at: string;
+}
+
+export interface CoverLetterGeneratorDetail {
+  id: number;
+  user_id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  job_description: string | null;
+  template_name: string;
+  generated_letter: string | null;
+  tone: string;
+  length: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CoverLetterGeneratorStatistics {
+  total_generated: number;
+  generated_this_week: number;
+  most_used_template: string | null;
+}
+
+export interface RecentCoverLetterGeneratorItem {
+  id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  template_name: string;
+  tone: string;
+  created_at: string;
+}
+
+export interface LatestCoverLetterGeneratorItem {
+  id: number;
+  resume_id: number;
+  job_title: string | null;
+  company_name: string | null;
+  template_name: string;
+  tone: string;
   created_at: string;
 }
 
