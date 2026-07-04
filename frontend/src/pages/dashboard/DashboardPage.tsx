@@ -102,6 +102,42 @@ export default function DashboardPage() {
         </div>
       </DashboardSection>
 
+      <DashboardSection title="Recent Applications" viewAllHref="/application-history">
+        {data.recent_automation_applications.length > 0 ? (
+          <div className="grid gap-3">
+            {data.recent_automation_applications.map((app) => (
+              <Card key={app.id}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">{app.job_title}</p>
+                    <p className="text-sm text-slate-500">{app.company_name}</p>
+                  </div>
+                  <Badge variant={app.status === 'completed' ? 'success' : 'outline'}>{app.status.replace(/_/g, ' ')}</Badge>
+                </div>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Card><p className="text-sm text-slate-500">No browser applications yet. Start from Job Search or Saved Jobs.</p></Card>
+        )}
+      </DashboardSection>
+
+      <DashboardSection title="Recent Saved Jobs" viewAllHref="/saved-jobs">
+        {data.recent_saved_jobs.length > 0 ? (
+          <div className="grid gap-3 md:grid-cols-2">
+            {data.recent_saved_jobs.map((job) => (
+              <Card key={job.id}>
+                <p className="font-medium">{job.job_title}</p>
+                <p className="text-sm text-slate-500">{job.company_name}</p>
+                {job.location && <p className="mt-1 text-xs text-slate-400">{job.location}</p>}
+              </Card>
+            ))}
+          </div>
+        ) : (
+          <Card><p className="text-sm text-slate-500">No saved jobs yet. Use Live Job Search to bookmark roles.</p></Card>
+        )}
+      </DashboardSection>
+
       <DashboardSection title="High Match Jobs" viewAllHref="/jobs?filter=high-match">
         {data.high_match_jobs.items.length > 0 ? (
           <JobListGrid>

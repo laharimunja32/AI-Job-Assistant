@@ -38,6 +38,10 @@ const InterviewFeedbackPage = lazy(() => import('@/pages/interviews/InterviewFee
 const InterviewHistoryPage = lazy(() => import('@/pages/interviews/InterviewHistoryPage'));
 const InterviewFeedbackListPage = lazy(() => import('@/pages/interview-feedback/InterviewFeedbackListPage'));
 const InterviewFeedbackDetailPage = lazy(() => import('@/pages/interview-feedback/InterviewFeedbackDetailPage'));
+const ApplicationHistoryPage = lazy(() => import('@/pages/job-search/ApplicationHistoryPage'));
+const JobSearchPage = lazy(() => import('@/pages/job-search/JobSearchPage'));
+const SavedJobsPage = lazy(() => import('@/pages/job-search/SavedJobsPage'));
+const BrowserApplicationPage = lazy(() => import('@/pages/job-search/BrowserApplicationPage'));
 const TimelinePage = lazy(() => import('@/pages/recruitment/TimelinePage'));
 const RemindersPage = lazy(() => import('@/pages/recruitment/RemindersPage'));
 
@@ -57,6 +61,10 @@ export const router = createBrowserRouter([
       { index: true, element: <Lazy><DashboardPage /></Lazy> },
       { path: 'jobs', element: <Lazy><JobsPage /></Lazy> },
       { path: 'jobs/:id', element: <Lazy><JobDetailPage /></Lazy> },
+      { path: 'job-search', element: <Lazy><JobSearchPage /></Lazy> },
+      { path: 'saved-jobs', element: <Lazy><SavedJobsPage /></Lazy> },
+      { path: 'browser-application', element: <Lazy><BrowserApplicationPage /></Lazy> },
+      { path: 'application-history', element: <Lazy><ApplicationHistoryPage /></Lazy> },
       { path: 'walk-ins', element: <Lazy><WalkInsPage /></Lazy> },
       { path: 'walk-ins/:id', element: <Lazy><WalkInDetailPage /></Lazy> },
       { path: 'resumes', element: <Lazy><ResumesPage /></Lazy> },

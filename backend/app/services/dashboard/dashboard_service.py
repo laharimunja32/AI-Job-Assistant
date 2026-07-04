@@ -22,8 +22,10 @@ from app.services.cover_letter_generator_service import CoverLetterGeneratorServ
 from app.services.cover_letter_service import CoverLetterService
 from app.services.interview_service import InterviewService
 from app.services.recruitment_monitoring_service import RecruitmentMonitoringService
+from app.services.browser_application_service import BrowserApplicationService
 from app.services.resume_optimizer_service import ResumeOptimizerService
 from app.services.resume_tailoring_service import ResumeTailoringService
+from app.services.saved_job_service import SavedJobService
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +85,8 @@ class DashboardService:
             "recruitment_summary": self.recruitment_monitoring.dashboard_summary(user),
             "recent_interviews": self.interviews.recent_for_dashboard(user),
             "interview_statistics": self.interviews.stats_for_dashboard(user),
+            "recent_saved_jobs": self._recent_saved_jobs(user),
+            "recent_automation_applications": self._recent_automation_applications(user),
         }
         self.cache.set("full_dashboard", user.id, result, suffix=f"{page}:{size}")
         return result
@@ -273,6 +277,8 @@ class DashboardService:
         average_readiness_score = round(sum(item.readiness_score for item in audits) / len(audits), 1) if audits else 0.0
         recruitment_summary = self.recruitment_monitoring.dashboard_summary(user)
         interview_stats = self.interviews.stats_for_dashboard(user)
+        saved_job_service = SavedJobService(self.db)
+        browser_app_service = BrowserApplicationService(self.db)
 
         return {
             "total_active_jobs": total_active_jobs,
@@ -313,7 +319,40 @@ class DashboardService:
             "interview_questions_answered": interview_stats["questions_answered"],
             "average_interview_readiness": interview_stats["average_readiness"],
             "average_interview_confidence": interview_stats["average_confidence"],
+            "saved_jobs_count": saved_job_service.count_saved_jobs(user.id),
+            "applications_this_week": browser_app_service.applications_this_week(user.id),
+            "automation_success_rate": browser_app_service.automation_success_rate(user.id),
+            "browser_applications_today": browser_app_service.applications_today(user.id),
         }
+
+    def _recent_saved_jobs(self, user: User) -> list[dict[str, Any]]:
+        items = SavedJobService(self.db).recent_saved_jobs(user.id, limit=5)
+        return [
+            {
+                "id": item.id,
+                "job_id": item.job_id,
+                "job_title": item.job_title,
+                "company_name": item.company_name,
+                "location": item.location,
+                "saved_at": item.saved_at,
+            }
+            for item in items
+        ]
+
+    def _recent_automation_applications(self, user: User) -> list[dict[str, Any]]:
+        items = BrowserApplicationService(self.db).recent_applications(user.id, limit=5)
+        return [
+            {
+                "id": item.id,
+                "company_name": item.company_name,
+                "job_title": item.job_title,
+                "status": item.status,
+                "applied_date": item.applied_date,
+                "duration_seconds": item.duration_seconds,
+                "created_at": item.created_at,
+            }
+            for item in items
+        ]
 
     def refresh_user_feed(self, user: User) -> dict[str, Any]:
         """Recompute matches and invalidate cached dashboard data for the user."""

@@ -7,6 +7,9 @@ from app.db.migrations import apply_schema_patches
 from app.db.models import Company, Job, JobSource, Profile, Resume, SearchHistory, User, WalkInEvent  # noqa: F401  Import for model registration
 from app.db.models.aggregation import AggregationRun  # noqa: F401  Import for model registration
 from app.db.models.application import Application, ApplicationHistory  # noqa: F401  Import for model registration
+from app.db.models.application_history import BrowserAutomationRecord  # noqa: F401  Import for model registration
+from app.db.models.job_search import LiveJobSearch  # noqa: F401  Import for model registration
+from app.db.models.saved_job import SavedJob  # noqa: F401  Import for model registration
 from app.db.models.cover_letter import CoverLetterGenerationHistory, CoverLetterTemplate, GeneratedCoverLetter  # noqa: F401  Import for model registration
 from app.db.models.cover_letter_generator import CoverLetter  # noqa: F401  Import for model registration
 from app.db.models.browser_session import BrowserSession  # noqa: F401  Import for model registration

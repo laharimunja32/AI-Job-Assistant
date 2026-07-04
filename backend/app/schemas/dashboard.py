@@ -150,9 +150,33 @@ class DashboardStatistics(BaseModel):
     interview_questions_answered: int = 0
     average_interview_readiness: float | None = None
     average_interview_confidence: float | None = None
+    saved_jobs_count: int = 0
+    applications_this_week: int = 0
+    automation_success_rate: float = 100.0
+    browser_applications_today: int = 0
 
 
-class ProfileSummary(BaseModel):
+class RecentSavedJobItem(BaseModel):
+    id: int
+    job_id: int | None = None
+    job_title: str
+    company_name: str
+    location: str | None = None
+    saved_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class RecentAutomationApplicationItem(BaseModel):
+    id: int
+    company_name: str
+    job_title: str
+    status: str
+    applied_date: datetime | None = None
+    duration_seconds: float | None = None
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
     has_profile: bool
     skills_count: int = 0
     preferred_roles: list[str] = Field(default_factory=list)
@@ -350,6 +374,8 @@ class DashboardResponse(BaseModel):
     recruitment_summary: RecruitmentSummary
     recent_interviews: list[RecentInterviewItem] = Field(default_factory=list)
     interview_statistics: InterviewStatisticsDashboard
+    recent_saved_jobs: list[RecentSavedJobItem] = Field(default_factory=list)
+    recent_automation_applications: list[RecentAutomationApplicationItem] = Field(default_factory=list)
 
 
 class RefreshResponse(BaseModel):

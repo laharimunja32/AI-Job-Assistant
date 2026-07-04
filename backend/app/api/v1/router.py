@@ -4,12 +4,14 @@ from app.api.v1.endpoints import (
     applications,
     auth,
     browser,
+    browser_application,
     cover_letter_generator,
     cover_letters,
     dashboard,
     health,
     interview_feedback,
     interviews,
+    job_search,
     jobs,
     matches,
     profile,
@@ -17,6 +19,7 @@ from app.api.v1.endpoints import (
     resume_optimizer,
     resume_tailoring,
     resumes,
+    saved_jobs,
     walk_ins,
 )
 
@@ -35,6 +38,9 @@ router.include_router(cover_letter_generator.router)
 router.include_router(cover_letters.router)
 router.include_router(applications.router)
 router.include_router(browser.router)
+router.include_router(job_search.router)
+router.include_router(saved_jobs.router)
+router.include_router(browser_application.router)
 router.include_router(recruitment_monitoring.router)
 router.include_router(interviews.router)
 router.include_router(interview_feedback.router)

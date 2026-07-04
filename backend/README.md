@@ -2,6 +2,40 @@
 
 FastAPI backend for the AI Job Assistant.
 
+## Milestone 21 – Live Job Search & Browser Application
+
+### Models
+- `app/db/models/job_search.py` – `LiveJobSearch` (per-user search history)
+- `app/db/models/saved_job.py` – `SavedJob` (bookmarked jobs)
+- `app/db/models/application_history.py` – `BrowserAutomationRecord` (automation runs)
+
+### Services
+- `app/services/job_search_service.py` – Live search with filters, pagination, provider orchestration
+- `app/services/saved_job_service.py` – Save, remove, list, status check
+- `app/services/browser_application_service.py` – Full apply flow reusing Playwright services in `app/services/browser/`
+
+### API
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/v1/job-search/search` | Live job search |
+| GET | `/api/v1/job-search/history` | Search history |
+| GET | `/api/v1/job-search/{id}` | Search detail |
+| POST | `/api/v1/saved-jobs` | Save job |
+| DELETE | `/api/v1/saved-jobs/{id}` | Remove saved job |
+| GET | `/api/v1/saved-jobs` | List saved jobs |
+| GET | `/api/v1/saved-jobs/status/check` | Check saved status |
+| POST | `/api/v1/browser-application/start` | Start automation |
+| POST | `/api/v1/browser-application/{id}/submit` | Submit application |
+| GET | `/api/v1/browser-application/history` | Automation history |
+| GET | `/api/v1/browser-application/{id}` | Automation detail |
+
+`BrowserManager` is initialized on app startup via lifespan in `app/__init__.py`.
+
+### Tests
+```bash
+python -m pytest backend/app/tests/test_job_search.py backend/app/tests/test_saved_jobs.py backend/app/tests/test_browser_application.py
+```
+
 ## Milestone 20 – Cover Letter Generator
 
 ### Model (`app/db/models/cover_letter_generator.py`)

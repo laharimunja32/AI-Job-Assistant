@@ -14,3 +14,6 @@ export * from './useBrowserAutomation';
 export * from './useRecruitmentMonitoring';
 export * from './useInterviews';
 export * from './useInterviewFeedback';
+export * from './useJobSearch';
+export * from './useSavedJobs';
+export * from './useBrowserApplication';
