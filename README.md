@@ -1,6 +1,139 @@
 # AI Job Application Assistant
 
-Full-stack AI-powered job application platform with resume tailoring, cover letters, applications, browser automation, recruitment monitoring, and **AI interview preparation**.
+Full-stack AI-powered job application platform with resume tailoring, ATS resume optimization, cover letters, AI cover letter generator, applications, browser automation, recruitment monitoring, and **AI interview preparation**.
+
+## Milestone 20 – AI Cover Letter Generator
+
+### Workflow
+1. Upload a master resume (`/resumes`)
+2. Open **Cover Letter Generator** from the sidebar
+3. Enter job title, company name, and paste the job description
+4. Choose template (Professional, Modern, Simple), tone, and length
+5. Generate (`POST /api/v1/cover-letter-generator/generate`)
+6. Edit the letter, preview, save changes, and download PDF or DOCX
+
+### Templates
+| Template | Style |
+|----------|-------|
+| Professional | Classic business format with clear sections |
+| Modern | Clean headings with structured sections |
+| Simple | Minimal formatting, direct paragraphs |
+
+### Tones & Lengths
+- **Tones**: Professional, Friendly, Formal, Confident
+- **Lengths**: Short (~1 paragraph), Medium (balanced), Long (detailed with profile context)
+
+### Architecture
+- **Backend model**: `CoverLetter` (`backend/app/db/models/cover_letter_generator.py`)
+- **Service**: `backend/app/services/cover_letter_generator_service.py`
+- **API**: `backend/app/api/v1/endpoints/cover_letter_generator.py`
+- **Frontend**: pages under `frontend/src/pages/cover-letter-generator/`, hooks `useCoverLetterGenerator`, service `coverLetterGenerator.service.ts`
+- **Dashboard**: Cover Letter Analytics (total generated, this week, most used template, latest, recent list)
+
+> **Note**: The existing job-based cover letter module (`/api/v1/cover-letters`) remains unchanged and is used from Job Detail pages.
+
+### API Routes
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| POST | `/api/v1/cover-letter-generator/generate` | Generate cover letter |
+| GET | `/api/v1/cover-letter-generator/history` | List past letters |
+| GET | `/api/v1/cover-letter-generator/{id}` | Full letter detail |
+| PUT | `/api/v1/cover-letter-generator/{id}` | Update letter content |
+| DELETE | `/api/v1/cover-letter-generator/{id}` | Delete letter |
+| GET | `/api/v1/cover-letter-generator/{id}/download?format=pdf\|docx` | Download letter |
+
+### Example Generate Request
+```json
+{
+  "resume_id": 1,
+  "job_description": "Backend Engineer. Python, FastAPI, SQL, Docker required.",
+  "job_title": "Backend Engineer",
+  "company_name": "Acme Corp",
+  "template_name": "professional",
+  "tone": "professional",
+  "length": "medium"
+}
+```
+
+### Frontend Routes
+- `/cover-letter-generator` — new generation form
+- `/cover-letter-generator/history` — past letters
+- `/cover-letter-generator/:id` — edit, preview, download
+
+### Testing
+```bash
+python -m pytest backend/app/tests/test_cover_letter_generator.py
+cd frontend && npm test && npm run build
+```
+
+## Milestone 19 – AI Resume Tailoring & ATS Optimization
+
+### Workflow
+1. Upload a master resume (`/resumes`)
+2. Open **Resume Optimizer** and paste a job description
+3. Run analysis (`POST /api/v1/resume-optimizer/analyze`)
+4. Review ATS score, keyword gaps, skill match, and recommendations
+5. Preview the tailored resume (only uses skills/experience you already have)
+6. Download optimized PDF or DOCX
+
+### Architecture
+- **Backend model**: `ResumeOptimization` (`backend/app/db/models/resume_optimization.py`)
+- **Service**: `backend/app/services/resume_optimizer_service.py`
+- **API**: `backend/app/api/v1/endpoints/resume_optimizer.py`
+- **Schemas**: `backend/app/schemas/resume_optimizer.py`
+- **Frontend**: pages under `frontend/src/pages/resume-optimizer/`, hooks `useResumeOptimizer`, service `resumeOptimizer.service.ts`
+- **Dashboard**: Resume Analytics section (average/highest ATS, latest optimization, recent list)
+
+### API Routes
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| POST | `/api/v1/resume-optimizer/analyze` | Analyze resume vs job description |
+| GET | `/api/v1/resume-optimizer/history` | List past analyses |
+| GET | `/api/v1/resume-optimizer/{analysis_id}` | Full analysis detail |
+| DELETE | `/api/v1/resume-optimizer/{analysis_id}` | Delete analysis |
+| GET | `/api/v1/resume-optimizer/{analysis_id}/download?format=pdf\|docx` | Download tailored resume |
+
+### Example Analyze Request
+```json
+{
+  "resume_id": 1,
+  "job_description": "Backend Engineer. Python, FastAPI, SQL, Docker required. 3+ years.",
+  "job_title": "Backend Engineer",
+  "company_name": "Acme Corp"
+}
+```
+
+### Example Analyze Response
+```json
+{
+  "id": 12,
+  "ats_score": 88,
+  "overall_score": 87,
+  "keyword_match": 82,
+  "skill_match": 91,
+  "experience_match": 80,
+  "education_match": 100,
+  "matched_keywords": ["Python", "FastAPI"],
+  "missing_keywords": ["Kubernetes"],
+  "matched_skills": ["Python", "SQL", "Docker"],
+  "missing_skills": ["Terraform"],
+  "recommendations": ["Mirror job-description terminology in your summary."],
+  "tailored_resume": "# Optimized Resume — Backend Engineer\n..."
+}
+```
+
+### Frontend Routes
+- `/resume-optimizer` — new analysis
+- `/resume-optimizer/history` — past optimizations
+- `/resume-optimizer/:id` — detail view with charts and downloads
+
+### Testing
+```bash
+python -m pytest backend/app/tests/test_resume_optimizer.py
+cd frontend && npm test && npm run build
+```
 
 ## Milestone 17 – AI Interview Preparation System
 

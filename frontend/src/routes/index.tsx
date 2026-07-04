@@ -15,6 +15,12 @@ const WalkInsPage = lazy(() => import('@/pages/walk-ins/WalkInsPage'));
 const WalkInDetailPage = lazy(() => import('@/pages/walk-ins/WalkInDetailPage'));
 const ResumesPage = lazy(() => import('@/pages/resumes/ResumesPage'));
 const ResumeDetailPage = lazy(() => import('@/pages/resumes/ResumeDetailPage'));
+const ResumeOptimizerPage = lazy(() => import('@/pages/resume-optimizer/ResumeOptimizerPage'));
+const ResumeOptimizationHistoryPage = lazy(() => import('@/pages/resume-optimizer/ResumeOptimizationHistoryPage'));
+const ResumeOptimizationDetailPage = lazy(() => import('@/pages/resume-optimizer/ResumeOptimizationDetailPage'));
+const CoverLetterGeneratorPage = lazy(() => import('@/pages/cover-letter-generator/CoverLetterGeneratorPage'));
+const CoverLetterHistoryPage = lazy(() => import('@/pages/cover-letter-generator/CoverLetterHistoryPage'));
+const CoverLetterDetailPage = lazy(() => import('@/pages/cover-letter-generator/CoverLetterDetailPage'));
 const ProfilePage = lazy(() => import('@/pages/profile/ProfilePage'));
 const ApplicationsPage = lazy(() => import('@/pages/applications/ApplicationsPage'));
 const NotificationsPage = lazy(() => import('@/pages/notifications/NotificationsPage'));
@@ -55,6 +61,12 @@ export const router = createBrowserRouter([
       { path: 'walk-ins/:id', element: <Lazy><WalkInDetailPage /></Lazy> },
       { path: 'resumes', element: <Lazy><ResumesPage /></Lazy> },
       { path: 'resumes/:id', element: <Lazy><ResumeDetailPage /></Lazy> },
+      { path: 'resume-optimizer', element: <Lazy><ResumeOptimizerPage /></Lazy> },
+      { path: 'resume-optimizer/history', element: <Lazy><ResumeOptimizationHistoryPage /></Lazy> },
+      { path: 'resume-optimizer/:id', element: <Lazy><ResumeOptimizationDetailPage /></Lazy> },
+      { path: 'cover-letter-generator', element: <Lazy><CoverLetterGeneratorPage /></Lazy> },
+      { path: 'cover-letter-generator/history', element: <Lazy><CoverLetterHistoryPage /></Lazy> },
+      { path: 'cover-letter-generator/:id', element: <Lazy><CoverLetterDetailPage /></Lazy> },
       { path: 'profile', element: <Lazy><ProfilePage /></Lazy> },
       { path: 'applications', element: <Lazy><ApplicationsPage /></Lazy> },
       { path: 'notifications', element: <Lazy><NotificationsPage /></Lazy> },

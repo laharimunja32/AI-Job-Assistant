@@ -2,6 +2,7 @@ from app.db.models.aggregation import AggregationRun
 from app.db.models.application import Application, ApplicationHistory
 from app.db.models.browser_session import BrowserSession, BrowserUploadAttempt
 from app.db.models.cover_letter import CoverLetterGenerationHistory, CoverLetterTemplate, GeneratedCoverLetter
+from app.db.models.cover_letter_generator import CoverLetter
 from app.db.models.interview import (
     InterviewAnswer,
     InterviewFeedback,
@@ -11,6 +12,7 @@ from app.db.models.interview import (
 )
 from app.db.models.job import Company, Job, JobSource, SearchHistory
 from app.db.models.walk_in import WalkInEvent
+from app.db.models.resume_optimization import ResumeOptimization
 from app.db.models.resume_tailoring import ResumeGenerationHistory, ResumeTemplate, TailoredResume
 from app.db.models.recruitment_monitoring import Assessment, EmailEvent, Interview, NotificationHistory, Reminder, TimelineEvent
 from app.db.models.submission_review import SubmissionReviewAudit
@@ -27,6 +29,7 @@ __all__ = [
     "BrowserSession",
     "BrowserUploadAttempt",
     "Company",
+    "CoverLetter",
     "CoverLetterGenerationHistory",
     "CoverLetterTemplate",
     "GeneratedCoverLetter",
@@ -41,6 +44,7 @@ __all__ = [
     "Profile",
     "Resume",
     "ResumeGenerationHistory",
+    "ResumeOptimization",
     "ResumeTemplate",
     "SearchHistory",
     "EmailEvent",

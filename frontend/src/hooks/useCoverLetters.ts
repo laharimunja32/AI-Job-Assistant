@@ -8,7 +8,7 @@ export const coverLetterKeys = {
   templates: () => [...coverLetterKeys.all, 'templates'] as const,
 };
 
-export function useGenerateCoverLetter() {
+export function useGenerateJobCoverLetter() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (jobId: number) => coverLettersService.generate(jobId),
@@ -28,7 +28,7 @@ export function useCoverLetter(id: number, enabled = true, refetchInterval?: num
   });
 }
 
-export function useCoverLetterHistory(page = 1, size = 20) {
+export function useJobCoverLetterHistory(page = 1, size = 20) {
   return useQuery({
     queryKey: coverLetterKeys.history(page, size),
     queryFn: async () => (await coverLettersService.getHistory({ page, size })).data,
